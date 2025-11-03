@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - English Teacher</title>
+    <style>
+        /* ===== GENERAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Paleta de colores de Harry Potter */
+        :root {
+            --hp-gold: #D4AF37;
+            --hp-burgundy: #740001;
+            --hp-dark-brown: #2A1810;
+            --hp-light-brown: #856A4D;
+            --hp-parchment: #F5E6CA;
+        }
+
+        /* ===== NAVIGATION ===== */
+        /* Fixed navigation bar at the top */
+        nav {
+            background: var(--hp-dark-brown);
+            border-bottom: 2px solid var(--hp-gold);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* ===== HERO SECTION (MAIN HEADER) ===== */
+        /* First section with profile photo and introduction */
+        .hero {
+            background: linear-gradient(135deg, var(--hp-burgundy) 0%, var(--hp-dark-brown) 100%);
+            color: white;
+            padding: 120px 20px 80px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .profile-img {
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+            object-fit: cover;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        /* ===== MAIN BUTTON ===== */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--hp-gold);
+            color: var(--hp-dark-brown);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* ===== GENERAL CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* ===== ABOUT ME SECTION ===== */
+        /* Personal description and qualifications */
+        .about {
+            background: var(--hp-parchment);
+        }
+
+        .about h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--hp-burgundy);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* ===== QUALIFICATIONS ===== */
+        /* List of certifications and experience */
+        .qualifications {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .qualification {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--hp-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .qualification:hover {
+            transform: translateX(10px);
+        }
+
+        .qualification h3 {
+            color: var(--hp-burgundy);
+            margin-bottom: 0.5rem;
+        }
+
+        .qualification-years {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== TEACHING APPROACH SECTION ===== */
+        /* Cards showing teaching methodology */
+        .approach {
+            background: white;
+        }
+
+        .approach h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--hp-burgundy);
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .approach-card {
+            background: var(--hp-parchment);
+            border: 1px solid var(--hp-gold);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .approach-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .approach-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .approach-card h3 {
+            color: var(--hp-burgundy);
+            margin-bottom: 1rem;
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        /* Classes and services offered */
+        .services {
+            background: #f8f9fa;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--hp-burgundy);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+        }
+
+        .service-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--hp-burgundy) 0%, var(--hp-dark-brown) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .service-info {
+            padding: 1.5rem;
+        }
+
+        .service-info h3 {
+            color: var(--hp-burgundy);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-price {
+            color: var(--hp-gold);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* ===== TESTIMONIALS SECTION ===== */
+        /* Student reviews and feedback */
+        .testimonials {
+            background: white;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--hp-burgundy);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--hp-parchment);
+            border: 1px solid var(--hp-gold);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--hp-gold);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            padding-top: 2rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--hp-burgundy);
+        }
+
+        .testimonial-role {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        /* Contact form for inquiries */
+        .contact {
+            background: #f8f9fa;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--hp-burgundy);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--hp-burgundy);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--hp-gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--hp-burgundy) 0%, var(--hp-dark-brown) 100%);
+            color: white;
+            border: 2px solid var(--hp-gold);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        /* Footer with social media links */
+        footer {
+            background: var(--hp-dark-brown);
+            border-top: 2px solid var(--hp-gold);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        /* Entry animations for elements */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        /* Adaptation for mobile devices */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== NAVIGATION ===== -->
+    <!-- Fixed navigation menu at the top -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#approach">Teaching</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <!-- Main section with photo and introduction -->
+    <section class="hero" id="home">
+        <!-- Profile image (replace with your photo) -->
+        <img src="./131509417_3636837149743275_5368747647841957129_n.jpg" alt="Your Photo" class="profile-img">
+        <h1>Arce Rocio Ayelen </h1>
+         <p >Taller de programacion III</p>
+            <p >IES LA TRINIDAD</p>
+        <p class="subtitle">Certified English Teacher & Language Coach</p>
+        <p>Passionate about helping students achieve their language goals through engaging, personalized lessons. Specializing in conversational English, exam preparation, and business communication.</p>
+        <a href="#contact" class="btn">Book a Lesson</a>
+    </section>
+
+    <!-- ===== ABOUT ME SECTION ===== -->
+    <!-- Personal information and qualifications -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                   
+                    <p>Hello! I'm a dedicated English teacher with a passion for helping students discover the joy of learning a new language. With years of experience teaching students of all ages and levels, I create a supportive and engaging learning environment where everyone can thrive.</p>
+                    <p>My teaching philosophy centers on making learning practical, interactive, and fun. I believe that language learning should be an enjoyable journey, not just memorizing grammar rules. I focus on real-world communication skills that you can use immediately.</p>
+                    <p>Whether you're preparing for an exam, advancing your career, or simply want to improve your conversational skills, I'm here to guide you every step of the way with personalized lessons tailored to your unique needs and goals.</p>
+                </div>
+                
+                <!-- Qualifications and certifications -->
+                <div class="qualifications">
+                    <div class="qualification">
+                        <h3>🎓 TEFL/TESOL Certification</h3>
+                        <p class="qualification-years">2020 - Present</p>
+                        <p>Certified to teach English as a Foreign Language to students worldwide.</p>
+                    </div>
+                    <div class="qualification">
+                        <h3>📚 Bachelor's in English Literature</h3>
+                        <p class="qualification-years">2016 - 2020</p>
+                        <p>Comprehensive understanding of English language, literature, and linguistics.</p>
+                    </div>
+                    <div class="qualification">
+                        <h3>💼 Teaching Experience</h3>
+                        <p class="qualification-years">5+ Years</p>
+                        <p>Extensive experience teaching students from beginners to advanced levels.</p>
+                    </div>
+                    <div class="qualification">
+                        <h3>🌍 International Experience</h3>
+                        <p class="qualification-years">Multiple Countries</p>
+                        <p>Taught students from diverse cultural backgrounds and learning styles.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TEACHING APPROACH SECTION ===== -->
+    <!-- Teaching methodology and principles -->
+    <section class="approach" id="approach">
+        <div class="container">
+            <h2>My Teaching Approach</h2>
+            <div class="approach-grid">
+                <div class="approach-card">
+                    <div class="approach-icon">🗣️</div>
+                    <h3>Communicative Method</h3>
+                    <p>Focus on real-life conversations and practical language use to build confidence in speaking.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">👤</div>
+                    <h3>Personalized Learning</h3>
+                    <p>Customized lessons based on your interests, goals, and learning pace.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">🎯</div>
+                    <h3>Goal-Oriented</h3>
+                    <p>Clear objectives and measurable progress to keep you motivated and on track.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">🎮</div>
+                    <h3>Interactive Activities</h3>
+                    <p>Engaging games, discussions, and multimedia resources to make learning enjoyable.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">📝</div>
+                    <h3>Constructive Feedback</h3>
+                    <p>Regular assessments and supportive corrections to help you improve continuously.</p>
+                </div>
+                <div class="approach-card">
+                    <div class="approach-icon">🌟</div>
+                    <h3>Positive Environment</h3>
+                    <p>Creating a comfortable space where mistakes are part of the learning process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES SECTION ===== -->
+    <!-- Classes and services offered -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2>Services & Classes</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">💬</div>
+                    <div class="service-info">
+                        <h3>Conversational English</h3>
+                        <p>Improve your speaking fluency and confidence through engaging conversations on diverse topics.</p>
+                        <p class="service-price">$25/hour</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">📖</div>
+                    <div class="service-info">
+                        <h3>Exam Preparation</h3>
+                        <p>TOEFL, IELTS, Cambridge exams - comprehensive preparation with proven strategies and practice tests.</p>
+                        <p class="service-price">$30/hour</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">💼</div>
+                    <div class="service-info">
+                        <h3>Business English</h3>
+                        <p>Professional communication skills for meetings, presentations, emails, and negotiations.</p>
+                        <p class="service-price">$35/hour</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">✍️</div>
+                    <div class="service-info">
+                        <h3>Writing Skills</h3>
+                        <p>Develop your academic and creative writing abilities with structured guidance and feedback.</p>
+                        <p class="service-price">$28/hour</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">👶</div>
+                    <div class="service-info">
+                        <h3>Kids & Teens</h3>
+                        <p>Fun and interactive lessons designed specifically for young learners with age-appropriate materials.</p>
+                        <p class="service-price">$22/hour</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">🎓</div>
+                    <div class="service-info">
+                        <h3>Academic English</h3>
+                        <p>Support for university-level English, research papers, and academic presentations.</p>
+                        <p class="service-price">$32/hour</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS SECTION ===== -->
+    <!-- Student reviews and success stories -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>What Students Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">She is an amazing teacher! Her lessons are always engaging and I've improved my English so much in just a few months. Highly recommended!</p>
+                    <p class="testimonial-author">Maria González</p>
+                    <p class="testimonial-role">Business Professional</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">Thanks to her help, I passed my IELTS exam with a 7.5! Her teaching methods are effective and she really cares about her students' success.</p>
+                    <p class="testimonial-author">Carlos Mendez</p>
+                    <p class="testimonial-role">University Student</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">My daughter loves her classes! She makes learning English fun and exciting. Her confidence in speaking has grown tremendously.</p>
+                    <p class="testimonial-author">Ana Rodriguez</p>
+                    <p class="testimonial-role">Parent</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <!-- Contact form for lesson inquiries -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="level">English Level</label>
+                    <select id="level" name="level" required>
+                        <option value="">Select your level...</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="elementary">Elementary</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="upper-intermediate">Upper Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="interest">Service Interested In</label>
+                    <select id="interest" name="interest" required>
+                        <option value="">Select a service...</option>
+                        <option value="conversational">Conversational English</option>
+                        <option value="exam">Exam Preparation</option>
+                        <option value="business">Business English</option>
+                        <option value="writing">Writing Skills</option>
+                        <option value="kids">Kids & Teens</option>
+                        <option value="academic">Academic English</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message / Goals</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <!-- Footer with social media and contact info -->
+    <footer>
+        <div class="social-links">
+            <a href="#" title="LinkedIn">💼</a>
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="Email">📧</a>
+            <a href="#" title="WhatsApp">💬</a>
+        </div>
+        <p>&copy; 2025 Arce Rocio Ayelen - English Teacher. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ===== SMOOTH NAVIGATION =====
+        // Smooth scrolling when clicking menu links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ===== CONTACT FORM =====
+        // Handle form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const level = document.getElementById('level').value;
+            const interest = document.getElementById('interest').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you can add logic to send the form
+            // For now, we just show a confirmation message
+            alert(`Thank you ${name}! I've received your inquiry about ${interest} classes. I'll contact you soon at ${email} to schedule a lesson!`);
+            
+            // Clear the form
+            this.reset();
+        });
+
+        // ===== OBSERVER FOR ANIMATIONS =====
+        // Detects when sections are visible to trigger animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all cards for scroll animations
+        document.querySelectorAll('.approach-card, .service-card, .testimonial-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // ===== PARALLAX EFFECT ON HERO =====
+        // Adds subtle parallax effect when scrolling
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < 500) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // ===== HIGHLIGHT ACTIVE NAVIGATION =====
+        // Highlights the current section in the navigation menu
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.opacity = '0.8';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.opacity = '1';
+                    link.style.fontWeight = '800';
+                } else {
+                    link.style.fontWeight = '600';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
