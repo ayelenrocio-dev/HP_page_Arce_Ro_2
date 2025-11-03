@@ -481,20 +481,123 @@
                 gap: 1rem;
             }
         }
+            /* NAV: estructura interna y botón hamburguesa */
+            .nav-inner {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+
+            .nav-toggle {
+                display: none; /* se muestra solo en móvil */
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+                position: absolute;
+                right: 20px;
+                top: 12px;
+            }
+
+            .hamburger,
+            .hamburger::before,
+            .hamburger::after {
+                display: block;
+                width: 26px;
+                height: 3px;
+                background: white;
+                border-radius: 2px;
+                transition: transform 0.25s ease, opacity 0.25s ease;
+            }
+
+            .hamburger::before,
+            .hamburger::after {
+                content: '';
+            }
+
+            .hamburger::before {
+                transform: translateY(-8px);
+            }
+
+            .hamburger::after {
+                transform: translateY(5px);
+            }
+
+            /* Estado abierto (transforma la hamburguesa en X) */
+            nav.open .hamburger {
+                background: transparent;
+            }
+            nav.open .hamburger::before {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            nav.open .hamburger::after {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            /* Mobile: mostramos toggle y convertimos el ul en menú vertical */
+            @media (max-width: 480px) {
+                .nav-toggle {
+                    display: block;
+                }
+
+                /* por defecto ocultamos el listado de links en móvil */
+                nav ul {
+                    display: none;
+                }
+
+                /* cuando está abierto mostramos el menú como overlay/stack */
+                nav.open ul {
+                    display: flex;
+                    flex-direction: column;
+                    position: fixed;
+                    top: 56px; /* debajo del área del nav */
+                    left: 0;
+                    width: 100%;
+                    background: var(--hp-dark-brown);
+                    padding: 0.5rem 0;
+                    gap: 0;
+                    z-index: 9999;
+                }
+
+                nav.open ul li {
+                    width: 100%;
+                }
+
+                nav.open ul li a {
+                    display: block;
+                    padding: 14px 20px;
+                    text-align: center;
+                }
+
+                /* Ajuste del hero cuando el nav no está visible permanentemente */
+                .hero {
+                    margin-top: 0;
+                    padding: 80px 20px 40px;
+                }
+            }
     </style>
 </head>
 <body>
     <!-- ===== NAVIGATION ===== -->
-    <!-- Fixed navigation menu at the top -->
+    <!-- Fixed navigation menu at the top with hamburger for mobile -->
     <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#approach">Teaching</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <div class="nav-inner">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#approach">Teaching</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
     </nav>
 
     <!-- ===== HERO SECTION ===== -->
@@ -826,6 +929,27 @@
                 }
             });
         });
+
+            // ===== HAMBURGER TOGGLE FOR MOBILE =====
+            const nav = document.querySelector('nav');
+            const navToggle = document.querySelector('.nav-toggle');
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                    navToggle.setAttribute('aria-expanded', String(!expanded));
+                    if (nav) nav.classList.toggle('open');
+                });
+
+                // Close menu when clicking a nav link (useful on mobile)
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.addEventListener('click', () => {
+                        if (nav && nav.classList.contains('open')) {
+                            nav.classList.remove('open');
+                            navToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                });
+            }
     </script>
 </body>
 </html>
